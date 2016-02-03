@@ -1,4 +1,4 @@
-
+require 'models/skill_inventory'
 
 class SkillInventoryApp < Sinatra::Base
   set :root, File.join(File.dirname(__FILE__), '..')
@@ -8,7 +8,7 @@ class SkillInventoryApp < Sinatra::Base
   end
 
   get '/skills' do
-    @skills = ["skill1", "skill2", "skill3"]
+    @skills = skill_inventory.all
     erb :index
   end
 
@@ -16,5 +16,14 @@ class SkillInventoryApp < Sinatra::Base
     erb :new
   end
 
+  post '/skills' do
+    skill_inventory.create(params[:skill])
+    redirect '/skills'
+  end
+
+  def skill_inventory
+    database = YAML::Store.new('db/skill_inventory')
+    @skill_inventory ||= SkillInventory.new(database)
+  end
 
 end

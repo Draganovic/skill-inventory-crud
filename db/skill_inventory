@@ -1,0 +1,9 @@
+---
+skills:
+- id: 1
+  name: fly
+  status: current
+- id: 2
+  name: fly
+  status: current
+total: 2
