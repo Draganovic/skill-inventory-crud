@@ -21,6 +21,11 @@ class SkillInventoryApp < Sinatra::Base
     redirect '/skills'
   end
 
+  get '/skills/:id' do |id|
+   @skill = skill_inventory.find(id.to_i)
+   erb :show
+ end
+
   def skill_inventory
     database = YAML::Store.new('db/skill_inventory')
     @skill_inventory ||= SkillInventory.new(database)
