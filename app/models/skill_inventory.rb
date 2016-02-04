@@ -35,4 +35,18 @@ class SkillInventory
       Skill.new(raw_skill(id))
     end
 
+    def delete(id)
+      database.transaction do
+        database['skills'].delete_if { |skill| skill["id"] == id }
+      end
+    end
+
+    def update(id, skill)
+    database.transaction do
+      target = database['skills'].find { |data| data["id"] == id }
+      target["name"] = skill[:name]
+      target["status"] = skill[:status]
+    end
+  end
+
 end

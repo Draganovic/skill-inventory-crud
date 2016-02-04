@@ -2,6 +2,7 @@ require 'models/skill_inventory'
 
 class SkillInventoryApp < Sinatra::Base
   set :root, File.join(File.dirname(__FILE__), '..')
+  set :method_override, true
 
   get '/' do
     erb :dashboard
@@ -21,10 +22,25 @@ class SkillInventoryApp < Sinatra::Base
     redirect '/skills'
   end
 
+  put '/skills/:id' do |id|
+    skill_inventory.update(id.to_i, params[:skill])
+    redirect "/skills/#{id}"
+  end
+
   get '/skills/:id' do |id|
-   @skill = skill_inventory.find(id.to_i)
-   erb :show
- end
+    @skill = skill_inventory.find(id.to_i)
+    erb :show
+  end
+
+  get '/skills/:id/edit' do |id|
+    @skill = skill_inventory.find(id.to_i)
+    erb :edit
+  end
+
+  delete '/skills/:id' do |id|
+    skill_inventory.delete(id.to_i)
+    redirect '/skills'
+  end
 
   def skill_inventory
     database = YAML::Store.new('db/skill_inventory')
