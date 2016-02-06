@@ -41,6 +41,13 @@ class SkillInventory
       end
     end
 
+    def delete_all
+    database.transaction do
+      database['skills'] = []
+      database['total'] = 0
+    end
+  end
+
     def update(id, skill)
     database.transaction do
       target = database['skills'].find { |data| data["id"] == id }
