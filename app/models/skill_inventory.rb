@@ -1,6 +1,4 @@
 require 'yaml/store'
-require_relative 'skill'
-
 class SkillInventory
   attr_reader :database
 
@@ -9,51 +7,31 @@ class SkillInventory
   end
 
   def create(skill)
-    database.transaction do
-      database['skills'] ||= []
-      database['total'] ||= 0
-      database['total'] += 1
-      database['skills'] << { "id" => database['total'], "name" => skill[:name], "status" => skill[:status] }
-    end
+    database.from(:skills).insert(skill)
   end
 
-  def raw_skills
-      database.transaction do
-        database['skills'] || []
-      end
-    end
-
-    def all
-      raw_skills.map { |data| Skill.new(data) }
-    end
-
-    def raw_skill(id)
-      raw_skills.find { |skill| skill["id"] == id }
-    end
-
-    def find(id)
-      Skill.new(raw_skill(id))
-    end
-
-    def delete(id)
-      database.transaction do
-        database['skills'].delete_if { |skill| skill["id"] == id }
-      end
-    end
-
-    def delete_all
-    database.transaction do
-      database['skills'] = []
-      database['total'] = 0
-    end
+  def all
+    result = database.from(:skills).map { |data| Skill.new(data) }
   end
 
-    def update(id, skill)
-    database.transaction do
-      target = database['skills'].find { |data| data["id"] == id }
-      target["name"] = skill[:name]
-      target["status"] = skill[:status]
-    end
+  def find(id)
+    result = database.from(:skills).where(:id => id).to_a.first
+    Skill.new(result)
+  end
+
+  def delete(id)
+    database.from(:skills).where(:id => id).delete
+  end
+
+  def delete_all
+  database.transaction do
+    database['skills'] = []
+    database['total'] = 0
+  end
+end
+
+  def update(id, skill)
+    database.from(:skills).where(:id => id).update(skill)
   end
 
 end

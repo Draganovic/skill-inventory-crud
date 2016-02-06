@@ -1,8 +1,6 @@
 require 'yaml/store'
 
 class SkillInventoryApp < Sinatra::Base
-  set :root, File.join(File.dirname(__FILE__), '..')
-  set :method_override, true
 
   get '/' do
     erb :dashboard
@@ -42,8 +40,16 @@ class SkillInventoryApp < Sinatra::Base
     redirect '/skills'
   end
 
+  not_found do
+    erb :error
+  end
+
   def skill_inventory
-    database = YAML::Store.new('db/skill_inventory')
+    if ENV["RACK_ENV"] == "test"
+      database = Sequel.sqlite("db/skill_inventory_test.sqlite3")
+    else
+      database = Sequel.sqlite("db/skill_inventory_development.sqlite3")
+    end
     @skill_inventory ||= SkillInventory.new(database)
   end
 

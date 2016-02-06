@@ -11,6 +11,6 @@ class UserCanViewEditSkills < Minitest::Test
   end
 
   def test_user_can_edit_skills
-    
+
 
   end
