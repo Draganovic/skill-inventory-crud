@@ -1,0 +1,20 @@
+.sub-title span{
+  border: solid black;
+  background-color: rgba(200, 0, 0, 0.8);
+  font-size: 35px;
+}
+body {
+  background: url(http://cdn.meme.am/instances/60188453.jpg)
+}
+
+h1 span{
+  border: solid black;
+  background-color: rgba(200, 0, 0, 0.8);
+  font-size: 50px;
+}
+
+.btn-large{
+  margin-top: 20px;
+  width: 100px;
+  border: solid black
+}
