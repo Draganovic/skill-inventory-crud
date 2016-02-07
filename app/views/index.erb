@@ -2,7 +2,7 @@
 
 <div class="skill-list">
   <% @skills.each do |skill| %>>
-  <div id="skill-<%=skill.id%>">
+  <div <%=skill.id%>">
     <h3><%= skill.id %>: <a href="/skills/<%= skill.id %>"><%= skill.name %></a></h3>
     <a class="btn-large" href="/skills/<%= skill.id %>/edit">Edit</a>
     <form action="/skills/<%= skill.id %>" method="POST">
