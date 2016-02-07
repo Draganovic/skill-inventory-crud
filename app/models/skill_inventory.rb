@@ -27,8 +27,8 @@ class SkillInventory
   database.transaction do
     database['skills'] = []
     database['total'] = 0
+    end
   end
-end
 
   def update(id, skill)
     database.from(:skills).where(:id => id).update(skill)
