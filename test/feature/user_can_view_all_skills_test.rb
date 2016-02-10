@@ -1,4 +1,4 @@
-require_relative '../../test_helper'
+require_relative '../test_helper'
 
 class UserCanViewAllSkills < Minitest::Test
   include Capybara::DSL
@@ -7,7 +7,8 @@ class UserCanViewAllSkills < Minitest::Test
   def create_skill(id, name, status)
     data = {id: id, name: name, status: status}
 
-    Skill.new(data)
+    skill_inventory.create(data)
+    @skill = skill_inventory.find(skill_inventory.all.last.id)
   end
 
   def test_user_can_view_all_skills
@@ -20,9 +21,9 @@ class UserCanViewAllSkills < Minitest::Test
     # and i click on skill index
     click_link("Skill Index")
     # then I view all skills
-    assert_equal '/skills', current_path
 
-    within(".skill-list") do
+    assert_equal '/skills', current_path
+    within("#skillz") do
         assert page.has_content?(golf.id)
         assert page.has_content?(golf.name)
         assert page.has_link?(golf.name)
@@ -30,8 +31,9 @@ class UserCanViewAllSkills < Minitest::Test
         assert page.has_content?(tennis.id)
         assert page.has_content?(tennis.name)
         assert page.has_link?(tennis.name)
-    
+
     end
+
   end
 
 

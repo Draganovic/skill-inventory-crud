@@ -1,3 +1,8 @@
+h1 span{
+  background-color: rgba(200, 0, 0, 0.8);
+  border: solid black;
+  font-size: 50px;
+}
 .sub-title span{
   border: solid black;
   background-color: rgba(200, 0, 0, 0.8);
@@ -7,10 +12,11 @@ body {
   background: url(http://cdn.meme.am/instances/60188453.jpg)
 }
 
-h1 span{
+
+h3 span{
   border: solid black;
   background-color: rgba(200, 0, 0, 0.8);
-  font-size: 50px;
+  font-size: 25px;
 }
 
 .btn-large{

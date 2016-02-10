@@ -7,7 +7,8 @@ class UserCanViewEditSkills < Minitest::Test
   def create_skill(id, name, status)
     data = {id: id, name: name, status: status}
 
-    Skill.new(data)
+    skill_inventory.create(data)
+    @skill = skill_inventory.find(skill_inventory.all.last.id)
   end
 
   def test_user_can_edit_skills
