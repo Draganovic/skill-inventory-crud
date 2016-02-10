@@ -14,14 +14,12 @@ class UserCanViewAllSkills < Minitest::Test
   def test_user_can_view_all_skills
     golf = create_skill(1, "golf", "good")
     tennis = create_skill(2, "tennis", "bad")
-
     #as a user
     #when I am at the root
     visit '/'
     # and i click on skill index
     click_link("Skill Index")
     # then I view all skills
-
     assert_equal '/skills', current_path
     within("#skillz") do
         assert page.has_content?(golf.id)
@@ -31,10 +29,7 @@ class UserCanViewAllSkills < Minitest::Test
         assert page.has_content?(tennis.id)
         assert page.has_content?(tennis.name)
         assert page.has_link?(tennis.name)
-
     end
-
   end
-
 
 end
